@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/basscss@7.1.1/css/basscss.min.css">
+    <style>
+      body {
+        background: #1E1D21;
+      }
+      .js-kit {
+        width: 10vw;
+        height: 10vw;
+        background-size: cover;
+        background-repeat: no-repeat;
+        transition: all .33s ease-in-out;
+        filter: grayscale(100%);
+        margin-right: 1vw;
+      }
+      .js-playing {
+        filter: none;
+        transform: scale(1.1);
+      }
+      .gradient {
+        background: linear-gradient(to top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex flex-center p2" style="min-height:100vh">
+  <div class="mx-auto flex flex-wrap">
+
+    <div data-key="65" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/130wfTwoIjMmis/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">A</kbd>
+        <p class="white muted">Big salad</p>
+      </div>
+    </div>
+
+    <div data-key="83" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/P4sjB6SI2fErK/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">S</kbd>
+        <p class="white muted">Hot tub</p>
+      </div>
+    </div>
+
+    <div data-key="68" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/W4vFaLBxeFKBq/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">D</kbd>
+        <p class="white muted">The Frogger</p>
+      </div>
+    </div>
+
+    <div data-key="70" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/14dXclYKbx2ONW/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">F</kbd>
+        <p class="white muted">Home Alone</p>
+      </div>
+    </div>
+
+    <div data-key="74" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/WMjfO612POH72/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">J</kbd>
+        <p class="white muted">Getting upset</p>
+      </div>
+    </div>
+    <div data-key="75" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/RMEifOfeyIfVS/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">K</kbd>
+        <p class="white muted">Two passions</p>
+      </div>
+    </div>
+    <div data-key="76" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/80mXWlPqTSU1y/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">L</kbd>
+        <p class="white muted">Serenity now!</p>
+      </div>
+    </div>
+    <div data-key="186" class="relative rounded js-kit" style="background-image: url(https://media.giphy.com/media/XOELmOhVyw9vq/giphy.gif);">
+      <div class="absolute bottom-0 center gradient col-12">
+        <kbd class="h1 bold white">;</kbd>
+        <p class="white muted">Significant shrinkage</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<audio data-key="65" src="http://audiofiles1.jerryseinfeld.nl/bigsalad.mp3"></audio>
+<audio data-key="83" src="http://audiofiles1.jerryseinfeld.nl/Goes_nuts.mp3"></audio>
+<audio data-key="68" src="http://audiofiles1.jerryseinfeld.nl/frogger.mp3"></audio>
+<audio data-key="70" src="http://audiofiles1.jerryseinfeld.nl/homealone.mp3"></audio>
+<audio data-key="74" src="http://audiofiles1.jerryseinfeld.nl/george_upset.wav"></audio>
+<audio data-key="75" src="http://audiofiles1.jerryseinfeld.nl/passions.mp3"></audio>
+<audio data-key="76" src="http://audiofiles1.jerryseinfeld.nl/serenity1.wav"></audio>
+<audio data-key="186" src="http://audiofiles1.jerryseinfeld.nl/shrinkage.mp3"></audio>
+
+    <script>
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.js-kit[data-key="${e.keyCode}"]`);
+        if(!audio) return; // stop if no audio is found
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('js-playing');
+      }
+
+      function removeTransition(e){
+        if(e.propertyName !== 'transform') return;
+        this.classList.remove('js-playing');
+      }
+
+      const keys = document.querySelectorAll('.js-kit');
+      keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+      window.addEventListener('keydown', playSound);
+    </script>
+  </body>
+</html>
